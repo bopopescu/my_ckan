@@ -9,6 +9,5 @@ recline_preview
 pdf_preview 
 datastore datastorer 
 resource_proxy
+usmetadata
 
-Next to add:
-USmetadata
