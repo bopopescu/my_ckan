@@ -6,6 +6,9 @@ from pylons import config
 
 from ckan.common import _
 
+FIX = False
+DEBUG = False
+
 class Missing(object):
     def __unicode__(self):
         raise Invalid(_('Missing value'))
@@ -289,9 +292,22 @@ def _validate(data, schema, context):
 
     ## main run
     for key in sorted(full_schema, key=flattened_order_key):
+        if DEBUG:
+            print '\nTanmay: key: '+str(key)
         if not key[-1].startswith('__'):
             for converter in full_schema[key]:
                 try:
+                    if FIX:
+                        ignoreWhileCreating = ['(\'endpoint\',)', '(\'rss_feed\',)', '(\'system_of_records_none_related_to_this_dataset\',)', '(\'webservice\',)' ]
+                        print '\nTanmay: converter: '+str(converter)
+                        if str(key) in ignoreWhileCreating:
+                            print 'skipping %s (needed while creating new resource)' %str(key)
+                            continue
+                        
+                        ignoreWhileUploading = ['(\'access_level_comment\',)', '(\'category\',)', '(\'conforms_to\',)', '(\'contact_email\',)', '(\'contact_name\',)', '(\'data_dictionary\',)', '(\'tag_string\',)','(\'data_dictionary_type\',)', '(\'data_quality\',)', '(\'homepage_url\',)', '(\'is_parent\',)', '(\'license_new\',)', '(\'modified\',)', '(\'parent_dataset\',)', '(\'publisher\',)', '(\'publisher_1\',)', '(\'publisher_2\',)', '(\'publisher_3\',)', '(\'publisher_4\',)', '(\'publisher_5\',)', '(\'related_documents\',)', '(\'release_date\',)', '(\'spatial\',)', '(\'system_of_records\',)', '(\'unique_id\',)', '(\'tags\', 0, \'vocabulary_id\')']
+                        if str(key) in ignoreWhileUploading:
+                            print 'skipping %s (needed while uploading/ updating a resource)' %str(key)
+                            continue
                     convert(converter, key, converted_data, errors, context)
                 except StopOnError:
                     break
