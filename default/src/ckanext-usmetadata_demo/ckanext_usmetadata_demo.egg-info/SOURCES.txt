@@ -1,0 +1,11 @@
+setup.py
+ckanext/__init__.py
+ckanext/usmetadata_demo/__init__.py
+ckanext/usmetadata_demo/plugin.py
+ckanext_usmetadata_demo.egg-info/PKG-INFO
+ckanext_usmetadata_demo.egg-info/SOURCES.txt
+ckanext_usmetadata_demo.egg-info/dependency_links.txt
+ckanext_usmetadata_demo.egg-info/entry_points.txt
+ckanext_usmetadata_demo.egg-info/namespace_packages.txt
+ckanext_usmetadata_demo.egg-info/not-zip-safe
+ckanext_usmetadata_demo.egg-info/top_level.txt
