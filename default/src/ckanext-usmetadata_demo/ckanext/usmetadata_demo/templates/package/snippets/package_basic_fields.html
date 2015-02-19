@@ -1,5 +1,7 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
-  {{ form.input('custom_text', label=_('Custom Text'), id='field-custom_text', placeholder=_('custom text'), value=data.custom_text, error=errors.custom_text, classes=['control-medium']) }}
+  {{ form.input('custom_text', label=_('Custom Text'), id='field-custom_text', placeholder=_('custom placeholder text'), value=data.custom_text, error=errors.custom_text, classes=['control-medium']) }}
+  {{ form.input('custom_text-1', label=_('Custom-1 Text'), id='field-custom_text', placeholder=_('custom placeholder-1 text'), value=data.custom_text_1, error=errors.custom_text_1, classes=['control-medium']) }}
+  {{ form.input('custom_text-2', label=_('Custom-2 Text'), id='field-custom_text', placeholder=_('custom placeholder-2 text'), value=data.custom_text_2, error=errors.custom_text_2, classes=['control-medium']) }}
 {% endblock %}

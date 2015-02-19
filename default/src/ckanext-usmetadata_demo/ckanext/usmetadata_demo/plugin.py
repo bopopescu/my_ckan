@@ -11,32 +11,40 @@ class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     p.implements(p.IDatasetForm)
     p.implements(p.IConfigurer)
     
+    #add all the extra fields here
+    def _modify_package_schema(self, schema):
+        schema.update({
+            'custom_text': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')], 
+            'custom_text-1': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')],
+            'custom_text-2': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')]
+        })
+        return schema
+    
     def create_package_schema(self):
         # let's grab the default schema in our plugin
         schema = super(MyPlugin, self).create_package_schema()
         #our custom field
-        schema.update({
-            'custom_text': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-        })
+        schema = self._modify_package_schema(schema)
         return schema
     
     def update_package_schema(self):
         schema = super(MyPlugin, self).update_package_schema()
         #our custom field
-        schema.update({
-            'custom_text': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-        })
+        schema = self._modify_package_schema(schema)
         return schema
     
     def show_package_schema(self):
         schema = super(MyPlugin, self).show_package_schema()
-        schema.update({
+        schema = self._modify_package_schema(schema)
+        return schema
+        '''schema.update({
             'custom_text': [tk.get_converter('convert_from_extras'),
                             tk.get_validator('ignore_missing')]
         })
-        return schema
+        return schema'''
     
     def is_fallback(self):
         # Return True to register this plugin as the default handler for

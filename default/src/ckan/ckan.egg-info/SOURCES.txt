@@ -1,6 +1,7 @@
 MANIFEST.in
 README.rst
 setup.cfg
+setup.py
 ckan/__init__.py
 ckan/ckan_nose_plugin.py
 ckan/common.py
@@ -44,6 +45,7 @@ ckan/controllers/template.py
 ckan/controllers/user.py
 ckan/controllers/util.py
 ckan/i18n/__init__.py
+ckan/i18n/__init__.pyc
 ckan/i18n/check_po_files.py
 ckan/i18n/ckan.pot
 ckan/i18n/ar/LC_MESSAGES/ckan.mo
