@@ -173,6 +173,8 @@ def convert(converter, key, converted_data, errors, context):
     if isinstance(converter, fe.Validator):
         try:
             value = converted_data.get(key)
+            print key
+            print value
             value = converter.to_python(value, state=context)
         except fe.Invalid, e:
             errors[key].append(e.msg)
@@ -308,6 +310,7 @@ def _validate(data, schema, context):
                         if str(key) in ignoreWhileUploading:
                             print 'skipping %s (needed while uploading/ updating a resource)' %str(key)
                             continue
+                    
                     convert(converter, key, converted_data, errors, context)
                 except StopOnError:
                     break

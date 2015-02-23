@@ -129,9 +129,9 @@ expanded_metadata = (
     {'id': 'related_documents', 'validators': [v.String(max=2100)]},
     {'id': 'conforms_to', 'validators': [v.URL(add_http=True), v.String(max=2100)]},
     {'id': 'homepage_url', 'validators': [v.URL(add_http=True), v.String(max=2100)]},
-    {'id': 'rss_feed', 'validators': [v.String(max=2100)]},
+    #{'id': 'rss_feed', 'validators': [v.String(max=2100)]},
     {'id': 'system_of_records', 'validators': [v.URL(add_http=True), v.String(max=2100)]},
-    {'id': 'system_of_records_none_related_to_this_dataset', 'validators': [v.String(max=2100)]},
+    #{'id': 'system_of_records_none_related_to_this_dataset', 'validators': [v.String(max=2100)]},
     {'id': 'primary_it_investment_uii', 'validators': [v.Regex(
         r'^[0-9]{3}-[0-9]{9}$'
     )]},
@@ -147,12 +147,12 @@ expanded_metadata = (
 required_if_applicable_metadata = (
     {'id': 'data_dictionary', 'validators': [v.URL(add_http=True), v.String(max=2100)]},
     {'id': 'data_dictionary_type', 'validators': [v.String(max=2100)]},
-    {'id': 'endpoint', 'validators': [v.String(max=2100)]},
+    #{'id': 'endpoint', 'validators': [v.String(max=2100)]},
     {'id': 'spatial', 'validators': [v.String(max=500)]},
     {'id': 'temporal', 'validators': [v.Regex(
         r'^[\-\dTWRZP/YMWDHMS:\+]{3,}/[\-\dTWRZP/YMWDHMS:\+]{3,}$'
     )]},
-    {'id': 'access_level_comment', 'validators': [v.String(max=255)]},
+    #{'id': 'access_level_comment', 'validators': [v.String(max=255)]},
     {'id': 'license_new', 'validators': [v.URL(add_http=True), v.String(max=2100)]}
 )
 
@@ -187,9 +187,9 @@ expanded_metadata_by_pass_validation = (
     {'id': 'related_documents', 'validators': [v.String(max=2100)]},
     {'id': 'conforms_to', 'validators': [v.String(max=2100)]},
     {'id': 'homepage_url', 'validators': [v.String(max=2100)]},
-    {'id': 'rss_feed', 'validators': [v.String(max=2100)]},
+    #{'id': 'rss_feed', 'validators': [v.String(max=2100)]},
     {'id': 'system_of_records', 'validators': [v.String(max=2100)]},
-    {'id': 'system_of_records_none_related_to_this_dataset', 'validators': [v.String(max=2100)]},
+    #{'id': 'system_of_records_none_related_to_this_dataset', 'validators': [v.String(max=2100)]},
     {'id': 'primary_it_investment_uii', 'validators': [v.String(max=2100)]},
     {'id': 'webservice', 'validators': [v.String(max=300)]},
     {'id': 'publisher_1', 'validators': [v.String(max=300)]},
@@ -203,10 +203,10 @@ expanded_metadata_by_pass_validation = (
 required_if_applicable_metadata_by_pass_validation = (
     {'id': 'data_dictionary', 'validators': [v.String(max=2100)]},
     {'id': 'data_dictionary_type', 'validators': [v.String(max=2100)]},
-    {'id': 'endpoint', 'validators': [v.String(max=2100)]},
+    #{'id': 'endpoint', 'validators': [v.String(max=2100)]},
     {'id': 'spatial', 'validators': [v.String(max=500)]},
     {'id': 'temporal', 'validators': [v.String(max=500)]},
-    {'id': 'access_level_comment', 'validators': [v.String(max=255)]},
+    #{'id': 'access_level_comment', 'validators': [v.String(max=255)]},
     {'id': 'license_new', 'validators': [v.String(max=2100)]}
 )
 

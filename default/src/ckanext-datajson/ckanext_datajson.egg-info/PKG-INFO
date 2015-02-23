@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: ckanext-datajson
+Version: 0.1
+Summary: CKAN extension to generate /data.json
+Home-page: http://www.healthdata.gov
+Author: U.S. Department of Health & Human Services
+Author-email: UNKNOWN
+License: Public Domain
+Description: 	
+Platform: UNKNOWN
