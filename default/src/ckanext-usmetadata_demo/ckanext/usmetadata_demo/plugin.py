@@ -5,7 +5,29 @@ Created on Feb 9, 2015
 '''
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
+import formencode.validators as v
 
+def create_access_levels():
+    user = tk.get_action('get_site_user')({'ignore_auth': True}, {})
+    context = {'user': user['name']}
+    try:
+        data = {'id': 'access_levels'}
+        tk.get_action('vocabulary_show')(context, data)
+    except tk.ObjectNotFound:
+        data = {'name': 'access_levels'}
+        vocab = tk.get_action('vocabulary_create')(context, data)
+        for tag in (u'Public', u'Restricted Public', u'Non Public'):
+            data = {'name': tag, 'vocabulary_id': vocab['id']}
+            tk.get_action('tag_create')(context, data)
+
+def access_levels():
+    create_access_levels()
+    try:
+        tag_list = tk.get_action('tag_list')
+        access_levels = tag_list(data_dict={'vocabulary_id': 'access_levels'})
+        return access_levels
+    except tk.ObjectNotFound:
+        return None
 
 class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     p.implements(p.IDatasetForm)
@@ -14,14 +36,14 @@ class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     #add all the extra fields here
     def _modify_package_schema(self, schema):
         schema.update({ 
-                       'modified': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')], 
+                       'modified': [tk.get_validator('isodate'), tk.get_converter('convert_to_extras')], 
                        'publisher': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
                        'identifier': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
-                       'Access Level': [tk.get_validator('not_empty'), tk.get_converter('convert_to_tags')('access_levels')],
+                       'Access Level': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_tags')('access_levels')],
                        'bureau_code': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
                        'prog_code': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
                        'contact_name': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
-                       'contact_email': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')]
+                       'contact_email': [v.Email(), tk.get_converter('convert_to_extras')]
         })
         # Add our custom_resource_text metadata field to the schema
         schema['resources'].update({
@@ -80,29 +102,6 @@ class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         # that CKAN will use this plugin's custom templates.
         tk.add_template_directory(config, 'templates')
         
-                
-    def create_access_levels(self):
-        user = tk.get_action('get_site_user')({'ignore_auth': True}, {})
-        context = {'user': user['name']}
-        try:
-            data = {'id': 'access_levels'}
-            tk.get_action('vocabulary_show')(context, data)
-        except tk.ObjectNotFound:
-            data = {'name': 'access_levels'}
-            vocab = tk.get_action('vocabulary_create')(context, data)
-            for tag in (u'Public', u'Restricted Public', u'Non Public'):
-                data = {'name': tag, 'vocabulary_id': vocab['id']}
-                tk.get_action('tag_create')(context, data)
-                
-                
-    def access_levels(self):
-        create_access_levels()
-        try:
-            tag_list = tk.get_action('tag_list')
-            access_levels = tag_list(data_dict={'vocabulary_id': 'access_levels'})
-            return access_levels
-        except tk.ObjectNotFound:
-            return None
     
     p.implements(p.ITemplateHelpers)
     def get_helpers(self):
