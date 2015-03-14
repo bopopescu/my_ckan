@@ -46,9 +46,11 @@ class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                        'contact_email': [v.Email(), tk.get_converter('convert_to_extras')]
         })
         # Add our custom_resource_text metadata field to the schema
+        '''
         schema['resources'].update({
                 'custom_resource_text' : [ tk.get_validator('ignore_missing') ]
                 })
+        '''
         return schema
     
     def create_package_schema(self):
@@ -80,11 +82,11 @@ class MyPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema.update({
                        'access_level' : [ tk.get_converter('convert_from_tags')('access_levels'), tk.get_validator('ignore_missing')]
                        })
-        
+        '''
         schema['resources'].update({
                 'custom_resource_text' : [ tk.get_validator('ignore_missing') ]
             })
-        
+        '''
         return schema
     
     def is_fallback(self):
