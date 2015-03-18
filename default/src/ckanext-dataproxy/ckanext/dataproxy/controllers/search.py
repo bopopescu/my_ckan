@@ -50,6 +50,7 @@ class SearchController(ApiController):
             raise Exception('ckan.dataproxy.secret must be defined to encrypt/decrypt passwords')
 
         connstr = resource.url
+        print "\n\nconnstr:"+str(connstr)
         password = resource.extras['db_password']
 
         password = decrypt(secret, unhexlify(password))
